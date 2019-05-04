@@ -31,7 +31,6 @@ public class GrapSolution {
             list[senondVal].add(firstVal);
         }
 
-
         LinkedList<Integer> queue = new LinkedList<Integer>();
         for (int i = 0; i < numCourses; i++) {
             if (inDegree[i] == 0) {
@@ -41,9 +40,11 @@ public class GrapSolution {
         if (queue.isEmpty()) {
             return new int[0];
         }
+        //返回的数组
         int[] newArr = new int[numCourses];
         int head = 0;
         Map<Integer,Boolean> map=new HashMap();
+        //判断是不是环
         boolean isHoop=false;
         while (!queue.isEmpty()) {
             int val = queue.remove();
@@ -54,6 +55,8 @@ public class GrapSolution {
             //插入新数组
             newArr[head] = val;
             LinkedList<Integer> linkedList = list[val];
+
+            //最后一个节点，不会指向下一个节点，略过此处操作
             if(linkedList!=null){
                 for (int i = 0; i < linkedList.size(); i++) {
                     int m = linkedList.get(i);
@@ -65,6 +68,7 @@ public class GrapSolution {
             }
             map.put(val,true);
             head++;
+            //如果遍历完每一个链表就跳出，说明中间断开了，直接返回
             if(head<numCourses&&queue.isEmpty()){
                 return new int[0];
             }
